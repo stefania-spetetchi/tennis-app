@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
-import AddScore from './add_score';
+import MatchesReducer from './match_reducer';
 
 const rootReducer = combineReducers({
-  scores: AddScore
+  matches: MatchesReducer
 });
 
 export default rootReducer;
