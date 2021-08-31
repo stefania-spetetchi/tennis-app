@@ -15,6 +15,9 @@ const NavBar = () => (
         <li>
           <a href="/lineup">Exchange Lineup</a>
         </li>
+        <li>
+          <a href="/lineup-view">Lineups</a>
+        </li>
       </ul>
     </div>
   </div>

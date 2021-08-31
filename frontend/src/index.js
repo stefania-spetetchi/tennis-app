@@ -9,6 +9,7 @@ import reducers from './reducers';
 import Main from './components/main_profile';
 import MatchHistory from './components/match_history';
 import LineupExchange from './components/lineup_exchange';
+import LineupView from './components/lineup_view';
 import 'foundation-sites/dist/css/foundation.min.css';
 import reportWebVitals from './reportWebVitals';
 
@@ -21,6 +22,7 @@ ReactDOM.render(
         <Route exact path="/" component={Main} />
         <Route path="/history" component={MatchHistory} />
         <Route path="/lineup" component={LineupExchange} />
+        <Route path="/lineup-view" component={LineupView} />
       </Switch>
     </BrowserRouter>
   </Provider>,
