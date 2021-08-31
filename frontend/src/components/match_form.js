@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
 import { Formik, Field } from 'formik';
-import FormSchema from './form_yup_schema';
+// import FormSchema from './form_yup_schema';
 
 const MatchForm = (props) => (
   <div>
@@ -24,7 +24,6 @@ const MatchForm = (props) => (
         scoreSet3Opponent: '',
         notes: '',
       }}
-      validationSchema={FormSchema}
       onSubmit={(values) => {
         // same shape as initial values
         console.log(values);
