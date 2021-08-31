@@ -1,13 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import {createStore, applyMiddleware} from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import promise from 'redux-promise';
 import { Provider } from 'react-redux';
-import { BrowserRouter, Switch, Route } from 'react-router-dom'; 
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import reducers from './reducers';
 import Main from './components/main_profile';
 import MatchHistory from './components/match_history';
+import LineupExchange from './components/lineup_exchange';
 import 'foundation-sites/dist/css/foundation.min.css';
 import reportWebVitals from './reportWebVitals';
 
@@ -19,6 +20,7 @@ ReactDOM.render(
       <Switch>
         <Route exact path="/" component={Main} />
         <Route path="/history" component={MatchHistory} />
+        <Route path="/lineup" component={LineupExchange} />
       </Switch>
     </BrowserRouter>
   </Provider>,

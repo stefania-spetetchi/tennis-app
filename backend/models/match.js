@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const Schema = mongoose.Schema;
+const { Schema } = mongoose;
 
 const MatchSchema = new Schema({
   type: '',
@@ -10,7 +10,7 @@ const MatchSchema = new Schema({
   opponent: [],
   scores: [[Number]],
   notes: '',
-  winner: ''
+  winner: '',
 });
 
-module.exports = mongoose.model("Match", MatchSchema);
+module.exports = mongoose.model('Match', MatchSchema);
