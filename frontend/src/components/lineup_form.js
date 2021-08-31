@@ -7,15 +7,16 @@ import { saveLineup } from '../actions';
 const LineupForm = () => {
   const dispatch = useDispatch();
   const [lineup, setLineup] = useState({
-    initialValues: {
-      opponentTeam: '',
-      opponentCaptainEmail: '',
-      date: '',
-      time: '',
-      line_1: '',
-      line_2: '',
-      line_3: '',
-    },
+    opponentTeam: '',
+    opponentCaptainEmail: '',
+    date: '',
+    time: '',
+    line_1_1: '',
+    line_1_2: '',
+    line_2_1: '',
+    line_2_2: '',
+    line_3_1: '',
+    line_3_2: '',
   });
 
   const handleSaveLineup = () => {
@@ -27,6 +28,19 @@ const LineupForm = () => {
     setLineup({ ...lineup, [name]: value });
   };
 
+  // const formValues = [
+  //   'opponentTeam',
+  //   'opponentCaptainEmail',
+  //   'date',
+  //   'time',
+  //   'line_1_1',
+  //   'line_1_2',
+  //   'line_2_1',
+  //   'line_2_2',
+  //   'line_3_1',
+  //   'line_3_2',
+  // ];
+
   return (
     <div className="grid-container">
       <div className="medium-10 cell">
@@ -37,9 +51,12 @@ const LineupForm = () => {
             opponentCaptainEmail: '',
             date: '',
             time: '',
-            line_1: '',
-            line_2: '',
-            line_3: '',
+            line_1_1: '',
+            line_1_2: '',
+            line_2_1: '',
+            line_2_2: '',
+            line_3_1: '',
+            line_3_2: '',
           }}
           onSubmit={async (values) => {
             await new Promise((r) => setTimeout(r, 500));
@@ -47,6 +64,19 @@ const LineupForm = () => {
           }}
         >
           <Form>
+            {/* {formValues.map((eachFormInput) => (
+              <div>
+                <label htmlFor={eachFormInput.toString()} />
+                <Field
+                  id={eachFormInput.toString()}
+                  name={eachFormInput.toString()}
+                  placeholder={eachFormInput.toString()}
+                  value={lineup[{ eachFormInput }] || ''}
+                  onChange={handleLineupChange({ eachFormInput })}
+                />
+              </div>
+            ))} */}
+
             <label htmlFor="opponentTeam">Opponent Team Name</label>
             <Field
               id="opponentTeam"
@@ -84,29 +114,50 @@ const LineupForm = () => {
               value={lineup.time || ''}
               onChange={handleLineupChange('time')}
             />
-            <label htmlFor="line_1">Line 1</label>
+            <label htmlFor="line_1_1">Line 1</label>
             <Field
-              id="line_1"
-              name="line_1"
-              placeholder="Jane and Sara"
-              value={lineup.line_1 || ''}
-              onChange={handleLineupChange('line_1')}
+              id="line_1_1"
+              name="line_1_1"
+              placeholder="Jane"
+              value={lineup.line_1_1 || ''}
+              onChange={handleLineupChange('line_1_1')}
             />
-            <label htmlFor="line_2">Line 2</label>
             <Field
-              id="line_2"
-              name="line_2"
-              placeholder="Anna and Mary"
-              value={lineup.line_2 || ''}
-              onChange={handleLineupChange('line_2')}
+              id="line_1_2"
+              name="line_1_2"
+              placeholder="Jane"
+              value={lineup.line_1_2 || ''}
+              onChange={handleLineupChange('line_1_2')}
             />
-            <label htmlFor="line_3">Line 3</label>
+            <label htmlFor="line_2_1">Line 2</label>
             <Field
-              id="line_3"
-              name="line_3"
-              placeholder="Julie and Monika"
-              value={lineup.line_3 || ''}
-              onChange={handleLineupChange('line_3')}
+              id="line_2_1"
+              name="line_2_1"
+              placeholder="Anna"
+              value={lineup.line_2_1 || ''}
+              onChange={handleLineupChange('line_2_1')}
+            />
+            <Field
+              id="line_2_2"
+              name="line_2_2"
+              placeholder="Anna"
+              value={lineup.line_2_2 || ''}
+              onChange={handleLineupChange('line_2_2')}
+            />
+            <label htmlFor="line_3_1">Line 3</label>
+            <Field
+              id="line_3_1"
+              name="line_3_1"
+              placeholder="Julie"
+              value={lineup.line_3_1 || ''}
+              onChange={handleLineupChange('line_3_1')}
+            />
+            <Field
+              id="line_3_2"
+              name="line_3_2"
+              placeholder="Julie"
+              value={lineup.line_3_2 || ''}
+              onChange={handleLineupChange('line_3_2')}
             />
 
             <label htmlFor="submit" />

@@ -52,9 +52,12 @@ router.post('/lineups', async (req, res) => {
       opponentCaptainEmail: req.body.opponentCaptainEmail,
       date: req.body.date,
       time: req.body.time,
-      line_1: req.body.line_1,
-      line_2: req.body.line_2,
-      line_3: req.body.line_3,
+      line_1_1: req.body.line_1_1,
+      line_1_2: req.body.line_1_2,
+      line_2_1: req.body.line_2_1,
+      line_2_2: req.body.line_2_2,
+      line_3_1: req.body.line_3_1,
+      line_3_2: req.body.line_3_2,
     });
     await newLineup.save(newLineup);
     res.json(newLineup);

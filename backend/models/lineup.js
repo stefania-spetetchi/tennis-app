@@ -7,9 +7,12 @@ const LineupSchema = new Schema({
   opponentCaptainEmail: '',
   date: '',
   time: '',
-  line_1: '',
-  line_2: '',
-  line_3: '',
+  line_1_1: '',
+  line_1_2: '',
+  line_2_1: '',
+  line_2_2: '',
+  line_3_1: '',
+  line_3_2: '',
 });
 
 module.exports = mongoose.model('Lineup', LineupSchema);
