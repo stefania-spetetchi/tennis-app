@@ -43,7 +43,7 @@ const LineupForm = () => {
 
   return (
     <div className="grid-container">
-      <div className="medium-10 cell">
+      <div className="medium-6 cell">
         <h4>Your next match lineup:</h4>
         <Formik
           initialValues={{

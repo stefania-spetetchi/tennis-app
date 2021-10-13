@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import _ from 'lodash';
-import { getMatches } from '../actions';
+import { getMatches, deleteMatch } from '../actions';
 
 const MatchView = () => {
   const { matches } = useSelector((state) => state.matches);
@@ -11,11 +11,16 @@ const MatchView = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [getMatches]);
 
+  function handleDelete(id) {
+    dispatch(deleteMatch(id));
+  }
+
   function renderMatchesDisplay() {
     if (!_.isEmpty(matches)) {
       const matchesTableRows = matches.map((match) => {
         const scoresList = match.scores;
-        const { opponent } = match;
+        // eslint-disable-next-line prefer-destructuring
+        const opponent = match.opponent;
 
         return (
           <tr key={match._id}>
@@ -24,7 +29,7 @@ const MatchView = () => {
             <td>{match.winner}</td>
             <td>
               {opponent.map((opponentName) => (
-                <p key={opponentName}>{opponentName}</p>
+                <p>{opponentName}</p>
               ))}
             </td>
             <td>{match.date}</td>
@@ -48,6 +53,23 @@ const MatchView = () => {
                 );
               })}
             </td>
+            <td>
+              <button
+                type="button"
+                className="fail button"
+                onClick={() => {
+                  const id = match._id;
+                  const confirm = window.confirm(
+                    'Do you really want to delete this match?'
+                  );
+                  if (confirm === true) {
+                    handleDelete(id);
+                  }
+                }}
+              >
+                Delete
+              </button>
+            </td>
           </tr>
         );
       });
@@ -66,6 +88,8 @@ const MatchView = () => {
                     <th width="150">Date</th>
                     <th width="150">Location</th>
                     <th width="150">Notes</th>
+                    <th width="150">Scores</th>
+                    <th width="100">Delete</th>
                   </tr>
                 </thead>
                 <tbody>{matchesTableRows}</tbody>
@@ -75,8 +99,6 @@ const MatchView = () => {
         </div>
       );
     }
-
-    return <legend>you do not have any matches yet</legend>;
   }
 
   return <div>{renderMatchesDisplay()}</div>;

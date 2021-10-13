@@ -6,8 +6,9 @@ const app = express();
 const router = express.Router();
 const Match = require('../models/match');
 const Lineup = require('../models/lineup');
+// const DeletedMatch = require('../models/deleted');
 
-// app.arguments(cors());
+app.use(cors());
 router.use(bodyParser.json());
 
 router.post('/matches', async (req, res) => {
@@ -45,6 +46,17 @@ router.get('/matches', (req, res, next) => {
   });
 });
 
+router.delete('/matches', (req, res) => {
+  Match.findByIdAndRemove(req.query[0])
+    .then((matchFound) => {
+      if (!matchFound) {
+        return res.status(404).end();
+      }
+      return res.status(200).json(matchFound);
+    })
+    .catch((err) => err);
+});
+
 router.post('/lineups', async (req, res) => {
   try {
     const newLineup = new Lineup({
@@ -65,4 +77,17 @@ router.post('/lineups', async (req, res) => {
     console.log(err);
   }
 });
+
+router.get('/lineups', (req, res, next) => {
+  const query = {};
+  if (req.query.level) query.level = req.query.level;
+
+  Lineup.find(query).exec((err, lineups) => {
+    Lineup.count().exec((err) => {
+      if (err) return next(err);
+      res.send(lineups);
+    });
+  });
+});
+
 module.exports = router;
