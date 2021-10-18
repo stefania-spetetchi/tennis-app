@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
-import { Formik, Field } from 'formik';
-// import FormSchema from './form_yup_schema';
+import { Form, Formik, Field } from 'formik';
+import MatchSchema from './form_yup_schema';
 
 const MatchForm = (props) => (
   <div>
@@ -24,204 +24,117 @@ const MatchForm = (props) => (
         scoreSet3Opponent: '',
         notes: '',
       }}
-      onSubmit={(values) => {
-        // same shape as initial values
+      validationSchema={MatchSchema}
+      onSubmit={(values, match) => {
         console.log(values);
+        props.handleChange(match);
+        props.handleSaveMatch(values);
       }}
     >
       {({ errors, touched }) => (
         <div className="grid-container">
           <div className="grid-x grid-padding-x">
             <div className="medium-6 cell">
-              <form>
-                <fieldset
-                  name="type"
-                  value={props.match.type}
-                  onChange={props.handleChange('type')}
-                >
-                  <fieldset>
-                    <label>
-                      <Field
-                        type="radio"
-                        name="type"
-                        value="Singles"
-                        id="typeSingles"
-                      />
-                      Singles
-                    </label>
-                    <label>
-                      <Field
-                        type="radio"
-                        name="type"
-                        value="Doubles"
-                        id="typeDoubles"
-                      />
-                      Doubles
-                    </label>
-                  </fieldset>
-                </fieldset>
-                {touched.type && errors.type && <div>{errors.type}</div>}
+              <Form>
+                <label>Type</label>
+                <Field name="type" placeholder="Singles or Doubles" />
+                {errors.type && touched.type ? <div>{errors.type}</div> : null}
                 <label>Level</label>
-                <Field
-                  type="text"
-                  name="level"
-                  placeholder="(2.5 to 5.0)"
-                  id="level"
-                  value={props.match.level}
-                  onChange={props.handleChange('level')}
-                />
-                {touched.level && errors.level && <div>{errors.level}</div>}
+                <Field name="level" />
+                {errors.level && touched.level ? (
+                  <div>{errors.level}</div>
+                ) : null}
                 <label>Date</label>
-                <Field
-                  type="date"
-                  name="date"
-                  value={props.match.date}
-                  onChange={props.handleChange('date')}
-                />
-                {touched.date && errors.date ? <div>{errors.date}</div> : null}
+                <Field name="date" type="date" />
+                {errors.date && touched.date ? <div>{errors.date}</div> : null}
                 <label>Location</label>
-                <Field
-                  name="location"
-                  type="text"
-                  placeholder="city or courts name"
-                  value={props.match.location}
-                  onChange={props.handleChange('location')}
-                />
-                {touched.location && errors.location ? (
+                <Field name="location" placeholder="city or courts name" />
+                {errors.location && touched.location ? (
                   <div>{errors.location}</div>
                 ) : null}
-                <div className="medium-6 cell">
-                  <label>Opponent/s</label>
-                  <Field
-                    type="text"
-                    name="opponent_1"
-                    placeholder="required"
-                    value={props.match.opponent_1}
-                    onChange={props.handleChange('opponent_1')}
-                  />
-                  {touched.opponent_1 && errors.opponent_1 && (
-                    <div>{errors.opponent_1}</div>
-                  )}
-                  <Field
-                    type="text"
-                    name="opponent_2"
-                    placeholder="required"
-                    value={props.match.opponent_2}
-                    onChange={props.handleChange('opponent_2')}
-                  />
-                  <label>Match notes</label>
-                  <Field
-                    type="text"
-                    name="notes"
-                    placeholder="enter any notes about the match"
-                    value={props.match.notes}
-                    onChange={props.handleChange('notes')}
-                  />
-                  <legend>Scores:</legend>
-                  <legend>Winner:</legend>
-                  <fieldset
-                    className="large-5 cell"
-                    value={props.match.winner}
-                    onChange={props.handleChange('winner')}
-                  >
-                    <label>
-                      <Field
-                        type="radio"
-                        name="winner"
-                        value="You"
-                        id="winYou"
-                        required
-                      />
-                      You
-                    </label>
-                    <label>
-                      <Field
-                        type="radio"
-                        name="winner"
-                        value="Opponent"
-                        id="winOpponent"
-                      />
-                      Opponent
-                    </label>
-                  </fieldset>
-                  <div className="grid-container">
-                    <div className="grid-x grid-padding-x">
-                      <legend>Set 1:</legend>
-                      <div className="medium-2 cell">
-                        <label>
-                          You
-                          <input
-                            type="text"
-                            placeholder="0-7"
-                            value={props.match.scoreSet1You}
-                            onChange={props.handleChange('scoreSet1You')}
-                          />
-                        </label>
-                      </div>
-                      <div className="medium-2 cell">
-                        <label>
-                          Opponent
-                          <input
-                            type="text"
-                            placeholder="0-7"
-                            value={props.match.scoreSet1Opponent}
-                            onChange={props.handleChange('scoreSet1Opponent')}
-                          />
-                        </label>
-                      </div>
+                <label>Opponent 1</label>
+                <Field name="opponent_1" />
+                {errors.opponent_1 && touched.opponent_1 ? (
+                  <div>{errors.opponent_1}</div>
+                ) : null}
+                <label>Opponent 2</label>
+                <Field name="opponent_2" />
+                {errors.opponent_2 && touched.opponent_2 ? (
+                  <div>{errors.opponent_2}</div>
+                ) : null}
+                <label>Scores:</label>
+                <label>Winner</label>
+                <Field name="winner" />
+                {errors.winner && touched.winner ? (
+                  <div>{errors.winner}</div>
+                ) : null}
+                <div className="grid-container">
+                  <div className="grid-x grid-padding-x">
+                    <legend>Set 1:</legend>
+                    <div className="medium-2 cell">
+                      <label>You</label>
+                      <Field name="scoreSet1You" />
+                      {errors.scoreSet1You && touched.scoreSet1You ? (
+                        <div>{errors.scoreSet1You}</div>
+                      ) : null}
                     </div>
-                  </div>
-                  <div className="grid-container">
-                    <div className="grid-x grid-padding-x">
-                      <legend>Set 2:</legend>
-                      <div className="medium-2 cell">
-                        <input
-                          type="text"
-                          placeholder="0-7"
-                          value={props.match.scoreSet2You}
-                          onChange={props.handleChange('scoreSet2You')}
-                        />
-                      </div>
-                      <div className="medium-2 cell">
-                        <input
-                          type="text"
-                          placeholder="0-7"
-                          value={props.match.scoreSet2Opponent}
-                          onChange={props.handleChange('scoreSet2Opponent')}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div className="grid-container">
-                    <div className="grid-x grid-padding-x">
-                      <legend>Set 3:</legend>
-                      <div className="medium-2 cell">
-                        <input
-                          type="text"
-                          placeholder="0-1"
-                          value={props.match.scoreSet3You}
-                          onChange={props.handleChange('scoreSet3You')}
-                        />
-                      </div>
-                      <div className="medium-2 cell">
-                        <input
-                          type="text"
-                          placeholder="0-1"
-                          value={props.match.scoreSet3Opponent}
-                          onChange={props.handleChange('scoreSet3Opponent')}
-                        />
-                      </div>
+                    <div className="medium-2 cell">
+                      <label>Opponent</label>
+                      <Field name="scoreSet1Opponent" />
+                      {errors.scoreSet1Opponent && touched.scoreSet1Opponent ? (
+                        <div>{errors.scoreSet1Opponent}</div>
+                      ) : null}
                     </div>
                   </div>
                 </div>
-                <button
-                  type="button"
-                  className="success button"
-                  onClick={() => props.handleSaveMatch()}
-                >
-                  Save
+                <div className="grid-container">
+                  <div className="grid-x grid-padding-x">
+                    <legend>Set 2:</legend>
+                    <div className="medium-2 cell">
+                      <label>You</label>
+                      <Field name="scoreSet2You" />
+                      {errors.scoreSet2You && touched.scoreSet2You ? (
+                        <div>{errors.scoreSet2You}</div>
+                      ) : null}
+                    </div>
+                    <div className="medium-2 cell">
+                      <label>Opponent</label>
+                      <Field name="scoreSet2Opponent" />
+                      {errors.scoreSet2Opponent && touched.scoreSet2Opponent ? (
+                        <div>{errors.scoreSet2Opponent}</div>
+                      ) : null}
+                    </div>
+                  </div>
+                </div>
+                <div className="grid-container">
+                  <div className="grid-x grid-padding-x">
+                    <legend>Set 3:</legend>
+                    <div className="medium-2 cell">
+                      <label>You</label>
+                      <Field name="scoreSet3You" />
+                      {errors.scoreSet3You && touched.scoreSet3You ? (
+                        <div>{errors.scoreSet3You}</div>
+                      ) : null}
+                    </div>
+                    <div className="medium-2 cell">
+                      <label>Opponent</label>
+                      <Field name="scoreSet3Opponent" />
+                      {errors.scoreSet3Opponent && touched.scoreSet3Opponent ? (
+                        <div>{errors.scoreSet3Opponent}</div>
+                      ) : null}
+                    </div>
+                  </div>
+                  <label>Notes</label>
+                  <Field name="notes" />
+                  {errors.notes && touched.notes ? (
+                    <div>{errors.notes}</div>
+                  ) : null}
+                </div>
+                <br />
+                <button type="submit" className="success button">
+                  Submit
                 </button>
-              </form>
+              </Form>
             </div>
           </div>
         </div>

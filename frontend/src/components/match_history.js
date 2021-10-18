@@ -25,8 +25,8 @@ const MatchHistory = () => {
     notes: '',
   });
 
-  const handleSaveMatch = () => {
-    dispatch(saveMatch(match));
+  const handleSaveMatch = (values) => {
+    dispatch(saveMatch(values));
   };
 
   const handleChange = (value) => (event) => {
